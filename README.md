@@ -3,8 +3,6 @@
 [![Build Status][xlr-arxan-plugin-travis-image]][xlr-arxan-plugin-travis-url]
 [![Codacy](https://api.codacy.com/project/badge/Grade/71d5adb3b2634edc875bd8c73cc3f24b)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xebialabs-community/xlr-arxan-plugin&amp;utm_campaign=Badge_Grade)
 [![License: MIT][xlr-arxan-plugin-license-image]][xlr-arxan-plugin-license-url]
-[![Github All Releases][xlr-arxan-plugin-downloads-image]]()
-[![Code Climate][xlr-arxan-plugin-code-climate-image]][xlr-arxan-plugin-code-climate-url]
 
 ## Preface
 
@@ -32,11 +30,7 @@ Per the configuration at `src/test/resources/docker/docker-compose.yml,` the por
 
 Add a sever configuration in the Release Shared Configuration page for each server or login you wish to manage.
 
-![SharedConfiguration](images/xlr-arxan-sharedconfiguration.PNG)
-
 Each entry has the following configuration items in its definition:
-
-![SharedConfiguration](images/arxan-login.PNG)
 
 ##### Basics
 *   Title - the name by which you will be referring to this definition in your Release Tasks.
