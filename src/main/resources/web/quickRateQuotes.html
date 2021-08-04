@@ -1,0 +1,81 @@
+<!--
+Copyright 2021 XEBIALABS
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+<!DOCTYPE html>
+<html style="height: 100%" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Quick Rate Quotes</title>
+    <style>
+      .no-js #loader { display: none;  }
+      .js #loader { display: block; }
+    </style>
+  </head>
+  <body style="height: 100%; margin: 0">
+    <div id="container" style="height: 100%"><img src="loading_animated.gif" id="loader" alt="loading image"/></div>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-gl/dist/echarts-gl.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts-stat/dist/ecStat.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/dataTool.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/china.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/map/js/world.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/echarts/dist/extension/bmap.min.js"></script>
+    <script type="text/javascript">
+      var usageCount = 0;
+      window.addEventListener("xlrelease.load", function() {
+        window.xlrelease.queryTileData(function(response) {
+          usageCount = response.data.data.usage_count;
+          document.getElementById("loader").style.display = 'none';
+
+          var dom = document.getElementById("container");
+          var myChart = echarts.init(dom);
+          option = null;
+          option = {
+            title: {
+              text: 'Quick Rate Quote Requests',
+              subtext: 'Data up to and including 5/13/2020',
+              subtextStyle: {
+                color: 'black'
+              }
+            },
+            xAxis: {
+              type: 'category',
+              data: ['4/28', '4/29', '4/30', '5/1', '5/2', '5/3', '5/4','5/5','5/6','5/7','5/8','5/9','5/10','5/11','5/12','5/13'],
+              name: 'Date',
+              nameLocation: 'middle',
+              nameTextStyle: {
+                fontWeight: 'bold',
+                fontSize: '30',
+                padding: [20,1,1,1]
+              }
+            },
+            yAxis: {
+              type: 'value',
+              name: 'Quick Rate Quotes',
+              nameLocation: 'middle',
+              nameTextStyle: {
+                fontWeight: 'bold',
+                fontSize: '30',
+                padding: [1,1,50,1]
+              }
+            },
+            series: [{
+              data: [0,2,16,4,1,1,9,5,1,20,3,0,0,438,697,usageCount],
+              type: 'line',
+              color: 'grey'
+            }]
+          };
+          if (option && typeof option === "object") {
+            myChart.setOption(option, true);
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

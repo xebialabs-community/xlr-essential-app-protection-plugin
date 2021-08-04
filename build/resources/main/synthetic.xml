@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Copyright 2021 XEBIALABS
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+-->
+
+<synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.xebialabs.com/deployit/synthetic" xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+
+    <type type="arxan.Server" extends="xlrelease.Configuration" label="Arxan: Server">
+        <property name="scriptLocation" hidden="true" default="arxan/TestConnection.py"/>
+        <property name="url" label="Base API URL" description="Arxan API url address"/>
+        <property name="key" label="Portal Key" description="Arxan API key (provided by developer portal UI)"/>
+        <property name="secret" label="Portal Secret" description="Arxan API secret (provided by developer portal UI)"/>
+        <property name="license" label="License Token" description="Arxan Ephemeral License Token (provided by developer portal UI)"/>
+        <property name="app_token" label="AppAware Application Token" description="See Developer Portal > Manage > Application Management > Feature Identifiers > AppAware."/>
+        <property name="app_endpoint" label="AppAware Application Endpoint" description="See Developer Portal > Manage > Application Management > Feature Identifiers > AppAware-ENDPT."/>
+    </type>
+
+    <type type="arxan.Task" extends="xlrelease.PythonScript" virtual="true">
+        <property name="iconLocation" hidden="true" default="arxan/arxan.png"/>
+        <property name="taskColor" hidden="true" default="#2A6190"/>
+        <property name="server" category="input" label="Server" required="true"
+                  description="The arxan server definition to use" referenced-type="arxan.Server" kind="ci"/>
+    </type>
+
+    <type type="arxan.GetAuthToken" extends="arxan.Task">
+        <property name="server" category="input" required="true" label="Server" kind="ci" referenced-type="arxan.Server"
+                  description="Essential Protection server (see Shared Configuration)." />
+        <property name="output" category="output"/>
+    </type>
+
+    <type type="arxan.UploadApplication" extends="arxan.Task">
+        <property name="server" category="input" required="true" label="Server" kind="ci" referenced-type="arxan.Server"
+                  description="Essential Protection server (see Shared Configuration)." />
+        <property name="auth_string" category="input" label="Auth String" description="Full authentication string."/>
+        <property name="file_url" category="input" label="File URL" description="Path to the APK file."/>
+        <property name="output" category="output"/>
+    </type>
+
+    <type type="arxan.CheckStatus" extends="arxan.Task">
+        <property name="server" category="input" required="true" label="Server" kind="ci" referenced-type="arxan.Server"
+                  description="Essential Protection server (see Shared Configuration)." />
+        <property name="auth_string" category="input" label="Auth String" description="Full authentication string."/>
+        <property name="protection_id" category="input" label="Protection ID" description="Protection ID returned by the upload task."/>
+        <property name="output" category="output"/>
+    </type>
+
+    <type type="arxan.DownloadFile" extends="arxan.Task">
+        <property name="server" category="input" required="true" label="Server" kind="ci" referenced-type="arxan.Server"
+                  description="Essential Protection server (see Shared Configuration)." />
+        <property name="auth_string" category="input" label="Auth String" description="Full authentication string."/>
+        <property name="protection_id" category="input" label="Protection ID" description="Protection ID returned by the upload task."/>
+        <property name="protected_file" category="input" label="Protected File Download Name" description="Protected file download path."/>
+        <property name="output" category="output"/>
+    </type>
+
+    <type type="arxan.DeleteApp" extends="arxan.Task">
+        <property name="server" category="input" required="true" label="Server" kind="ci" referenced-type="arxan.Server"
+                  description="Essential Protection server (see Shared Configuration)." />
+        <property name="auth_string" category="input" label="Auth String" description="Full authentication string."/>
+        <property name="protection_id" category="input" label="Protection ID" description="Protection ID returned by the upload task."/>
+        <property name="output" category="output"/>
+    </type>
+</synthetic>
