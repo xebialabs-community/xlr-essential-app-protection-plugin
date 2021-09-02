@@ -37,7 +37,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
         <property name="server" category="input" required="true" label="Server" kind="ci" referenced-type="arxan.Server"
                   description="Essential Protection server (see Shared Configuration)." />
         <property name="auth_string" category="input" label="Auth String" description="Full authentication string."/>
-        <property name="file_url" category="input" label="File URL" description="Path to the APK file."/>
+        <property name="file_path" category="input" label="File Path Name" description="Absolute local path to the APK file to upload. Example: '/Users/username/project/android.apk'."/>
         <property name="output" category="output"/>
     </type>
 
@@ -54,7 +54,7 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
                   description="Essential Protection server (see Shared Configuration)." />
         <property name="auth_string" category="input" label="Auth String" description="Full authentication string."/>
         <property name="protection_id" category="input" label="Protection ID" description="Protection ID returned by the upload task."/>
-        <property name="protected_file" category="input" label="Protected File Download Name" description="Protected file download path."/>
+        <property name="protected_file" category="input" label="File Path Name" description="Absolute path to the APK file to download as. Example: '/Users/username/project/android-protected.apk'."/>
         <property name="output" category="output"/>
     </type>
 

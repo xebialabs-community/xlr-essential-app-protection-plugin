@@ -19,19 +19,12 @@ logger = LoggerFactory.getLogger("Arxan")
 api_token_endpoint = "/v2/apaas/apps"
 url = server.get('url') + "%s" % api_token_endpoint
 
-# setup the request payload and headers
-#payload = "grant_type=client_credentials&client_id=%s" % configuration.key
-#payload = payload + "&client_secret=%s" % configuration.secret
 headers = {
     'Content-Type': "application/x-www-form-urlencoded"
 }
-payload = {
-    'client_id': server.get('key'),
-    'client_secret': server.get('secret'),
-    'grant_type': 'client_credentials'
-}
 
-with open(file_url, 'rb') as app_file:
+with open(file_path, 'rb') as app_file:
+    logger.info('Filepath: %s' % file_path)
     files = {'appFile': app_file}
     headers = {
         'Authorization': auth_string,
@@ -45,9 +38,14 @@ with open(file_url, 'rb') as app_file:
             }
         }
     }
-    logger.info('Uploading app...')
+    logger.info('Uploading file...')
+    logger.info('URL: %s' % url)
+    logger.info('Headers: %s' % json.dumps(headers))
+    logger.info('JSON: %s' % json.dumps(data))
     response = requests.post(url, files = files, data = {'data': json.dumps(data)}, headers = headers, verify = False)
-    output = response.json().get('protectionId')
+    logger.info('Uploading app response status code: %s.' % response.status_code)
+    logger.info(response.json()['message'])
+    # output = response.json().get('protectionId')
 
     if response.status_code == 200:
         logger.info('App uploaded')
